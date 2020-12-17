@@ -28,9 +28,16 @@ let offset = 0;
 
 
 sliderList.style.width = 100 * slides.length + '%';
-slides.forEach(slide => {
-    slide.style.width = widthSlide;
-});
+
+function getWidthSlide() {
+    widthSlide = window.getComputedStyle(slider).width;
+    console.log(widthSlide);
+    slides.forEach(slide => {
+        slide.style.width = widthSlide;
+    });
+}
+
+getWidthSlide();
 
 function showNextSlide() {
     if (offset == +widthSlide.slice(0, widthSlide.length - 2) * (slides.length - 1)) {
@@ -64,5 +71,6 @@ function showPrevSlide() {
     sliderList.style.transform = `translateX(-${offset}px)`;
 }
 
+window.addEventListener('resize', getWidthSlide);
 nextSlideBtn.addEventListener('click', showNextSlide);  
 prevSlideBtn.addEventListener('click', showPrevSlide);
