@@ -22,16 +22,15 @@ const slides =  document.querySelectorAll('.slider-list__slide');
 const nextSlideBtn = document.querySelector('.navigation-slider__button--next-slide');
 const prevSlideBtn = document.querySelector('.navigation-slider__button--prev-slide');
 
-const widthSlide = window.getComputedStyle(slider).width;
+let widthSlide = window.getComputedStyle(slider).width;
 let slideIndex = 1;
 let offset = 0;
 
-
 sliderList.style.width = 100 * slides.length + '%';
+
 
 function getWidthSlide() {
     widthSlide = window.getComputedStyle(slider).width;
-    console.log(widthSlide);
     slides.forEach(slide => {
         slide.style.width = widthSlide;
     });
@@ -39,17 +38,12 @@ function getWidthSlide() {
 
 getWidthSlide();
 
+
 function showNextSlide() {
     if (offset == +widthSlide.slice(0, widthSlide.length - 2) * (slides.length - 1)) {
         offset = 0;
     } else {
         offset += +widthSlide.slice(0, widthSlide.length - 2);
-    }
-
-    if (slideIndex == slides.length) {
-        slideIndex = 1;
-    } else {
-        slideIndex++;
     }
 
     sliderList.style.transform = `translateX(-${offset}px)`;
@@ -60,12 +54,6 @@ function showPrevSlide() {
         offset = +widthSlide.slice(0, widthSlide.length - 2) * (slides.length - 1);
     } else {
         offset -= +widthSlide.slice(0, widthSlide.length - 2);
-    }
-
-    if (slideIndex == 1) {
-        slideIndex = slides.length;
-    } else {
-        slideIndex--;
     }
 
     sliderList.style.transform = `translateX(-${offset}px)`;
